@@ -33,9 +33,9 @@ SET default_with_oids = false;
 -- Name: PairStationWay; Type: TABLE; Schema: public; Owner: -; Tablespace:
 --
 
-CREATE TABLE "Line" (
-    "ID" integer NOT NULL,
-    "Name" character varying(64)
+CREATE TABLE "line" (
+    "id" integer NOT NULL,
+    "name" character varying(64)
 );
 
 
@@ -43,14 +43,15 @@ CREATE TABLE "Line" (
 -- Name: Station; Type: TABLE; Schema: public; Owner: -; Tablespace: 
 --
 
-CREATE TABLE "Station" (
-    "ID" integer NOT NULL,
-    "Name" character varying(64) NOT NULL,
-    "LineID" integer NOT NULL,
-    "Latitude" double precision,
-    "Longitude" double precision,
-    "OpenTime" time with time zone NOT NULL,
-    "CloseTime" time with time zone NOT NULL
+CREATE TABLE "station" (
+    "id" integer NOT NULL,
+    "name" character varying(64) NOT NULL,
+    "line_id" integer NOT NULL,
+    "latitude" double precision,
+    "longitude" double precision,
+    "open_time" time with time zone NOT NULL,
+    "close_time" time with time zone NOT NULL,
+    "type_id" integer NOT NULL
 );
 
 
@@ -58,15 +59,52 @@ CREATE TABLE "Station" (
 -- Name: StationWay; Type: TABLE; Schema: public; Owner: -; Tablespace: 
 --
 
-CREATE TABLE "StationWay" (
-    "ID" integer NOT NULL,
-    "StationID" integer NOT NULL,
-    "LastTrainOdd" time with time zone NOT NULL,
-    "FirstTrainOdd" time with time zone NOT NULL,
-    "NextWay" integer,
-    "Transfers" integer[],
-    "LastTrainEven" time with time zone NOT NULL,
-    "FirstTrainEven" time with time zone NOT NULL
+CREATE TABLE "station_way" (
+    "id" integer NOT NULL,
+    "station_id" integer NOT NULL,
+    "last_train_odd" time with time zone NOT NULL,
+    "first_train_odd" time with time zone NOT NULL,
+    "next_way" integer,
+    "transfers" integer[],
+    "last_train_even" time with time zone NOT NULL,
+    "first_train_even" time with time zone NOT NULL,
+    "interval" interval
+);
+
+
+--
+-- Name: Type; Type: TABLE; Schema: public; Owner: -; Tablespace: 
+--
+
+CREATE TABLE "type" (
+    "id" integer NOT NULL,
+    "name" character varying(64)
+);
+
+
+--
+-- Name: base_data; Type: TABLE; Schema: public; Owner: -; Tablespace: 
+--
+
+CREATE TABLE base_data (
+    row_id integer NOT NULL,
+    hall_name character varying(64),
+    longitude double precision,
+    latitude double precision,
+    name_of_station character varying(64),
+    line character varying(64),
+    odd_open_varchar character varying(64),
+    close_odd_varchar character varying(64),
+    odd_first_train_way_1 character varying(64),
+    odd_first_train_way_2 character varying(64),
+    odd_last_train_way_1 character varying(64),
+    odd_last_train_way_2 character varying,
+    even_open_varchar character varying(64),
+    even_close_varchar character varying(64),
+    even_first_train_way_1 character varying(64),
+    even_first_train_way_2 character varying(64),
+    even_last_thain_way_1 character varying(64),
+    even_last_train_way_2 character varying(64)
 );
 
 
@@ -74,40 +112,64 @@ CREATE TABLE "StationWay" (
 -- Name: LineID; Type: CONSTRAINT; Schema: public; Owner: -; Tablespace: 
 --
 
-ALTER TABLE ONLY "Line"
-    ADD CONSTRAINT "LineID" PRIMARY KEY ("ID");
+ALTER TABLE ONLY "line"
+    ADD CONSTRAINT "line_id" PRIMARY KEY ("id");
 
 
 --
 -- Name: StationID; Type: CONSTRAINT; Schema: public; Owner: -; Tablespace: 
 --
 
-ALTER TABLE ONLY "Station"
-    ADD CONSTRAINT "StationID" PRIMARY KEY ("ID");
+ALTER TABLE ONLY "station"
+    ADD CONSTRAINT "station_id" PRIMARY KEY ("id");
+
+
+--
+-- Name: TypeID; Type: CONSTRAINT; Schema: public; Owner: -; Tablespace: 
+--
+
+ALTER TABLE ONLY "type"
+    ADD CONSTRAINT "type_id" PRIMARY KEY ("id");
 
 
 --
 -- Name: id; Type: CONSTRAINT; Schema: public; Owner: -; Tablespace: 
 --
 
-ALTER TABLE ONLY "StationWay"
-    ADD CONSTRAINT id PRIMARY KEY ("ID");
+ALTER TABLE ONLY "station_way"
+    ADD CONSTRAINT station_way_id PRIMARY KEY ("id");
+
+
+--
+-- Name: row_id; Type: CONSTRAINT; Schema: public; Owner: -; Tablespace: 
+--
+
+ALTER TABLE ONLY base_data
+    ADD CONSTRAINT row_id PRIMARY KEY (row_id);
 
 
 --
 -- Name: LineID; Type: FK CONSTRAINT; Schema: public; Owner: -
 --
 
-ALTER TABLE ONLY "Station"
-    ADD CONSTRAINT "LineID" FOREIGN KEY ("LineID") REFERENCES "Line"("ID");
+ALTER TABLE ONLY "station"
+    ADD CONSTRAINT "line_id" FOREIGN KEY ("line_id") REFERENCES "line"("id");
+
+
+--
+-- Name: StationType; Type: FK CONSTRAINT; Schema: public; Owner: -
+--
+
+ALTER TABLE ONLY "station"
+    ADD CONSTRAINT "station_type" FOREIGN KEY ("type_id") REFERENCES "type"("id");
 
 
 --
 -- Name: WayStation; Type: FK CONSTRAINT; Schema: public; Owner: -
 --
 
-ALTER TABLE ONLY "StationWay"
-    ADD CONSTRAINT "WayStation" FOREIGN KEY ("StationID") REFERENCES "Station"("ID");
+ALTER TABLE ONLY "station_way"
+    ADD CONSTRAINT "way_station" FOREIGN KEY ("station_id") REFERENCES "station"("id");
 
 
 --
@@ -115,8 +177,8 @@ ALTER TABLE ONLY "StationWay"
 --
 
 REVOKE ALL ON SCHEMA public FROM PUBLIC;
-REVOKE ALL ON SCHEMA public FROM viktorlopatin;
-GRANT ALL ON SCHEMA public TO viktorlopatin;
+REVOKE ALL ON SCHEMA public FROM pihta;
+GRANT ALL ON SCHEMA public TO pihta;
 GRANT ALL ON SCHEMA public TO PUBLIC;
 
 
