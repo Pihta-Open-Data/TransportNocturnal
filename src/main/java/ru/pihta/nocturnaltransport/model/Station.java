@@ -3,8 +3,7 @@ package ru.pihta.nocturnaltransport.model;
 import javax.persistence.Entity;
 import javax.persistence.Table;
 
-@Entity
-@Table(name="Station")
+
 public class Station {
 
 //    "ID" integer NOT NULL,
@@ -16,6 +15,6 @@ public class Station {
 //    "CloseTime" time with time zone NOT NULL,
 //    "TypeID" integer NOT NULL
 
-    private
+   // private
 
 }

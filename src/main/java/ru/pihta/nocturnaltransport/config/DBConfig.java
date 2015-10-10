@@ -5,20 +5,13 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
 import org.springframework.context.annotation.Import;
-import org.springframework.core.env.Environment;
-import org.springframework.jdbc.datasource.embedded.EmbeddedDatabase;
-import org.springframework.jdbc.datasource.embedded.EmbeddedDatabaseBuilder;
-import org.springframework.jdbc.datasource.embedded.EmbeddedDatabaseType;
 import org.springframework.orm.hibernate4.LocalSessionFactoryBean;
 import ru.pihta.nocturnaltransport.Application;
 
-import javax.annotation.PostConstruct;
-import javax.annotation.PreDestroy;
 import javax.sql.DataSource;
 import java.util.Properties;
 
 @Configuration
-@Import(Application.class)
 public class DBConfig {
 
     @Autowired
@@ -38,7 +31,7 @@ public class DBConfig {
     public LocalSessionFactoryBean sessionFactory() {
         LocalSessionFactoryBean sessionFactory = new LocalSessionFactoryBean();
         sessionFactory.setDataSource(dataSource);
-        sessionFactory.setPackagesToScan("ru.hrspace.entity");
+        sessionFactory.setPackagesToScan("ru.pihta.nocturnaltransport.model");
         sessionFactory.setHibernateProperties(hibernateProperties());
         return sessionFactory;
     }
@@ -51,7 +44,6 @@ public class DBConfig {
 
             {
                 setProperty("hibernate.dialect", "org.hibernate.dialect.PostgreSQLDialect");
-                setProperty("hibernate.hbm2ddl.auto", "create");
             }
         };
     }

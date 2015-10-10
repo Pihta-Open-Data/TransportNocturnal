@@ -4,12 +4,20 @@ package ru.pihta.nocturnaltransport;
 import org.springframework.boot.SpringApplication;
 import org.springframework.boot.autoconfigure.SpringBootApplication;
 import org.springframework.context.annotation.Bean;
+import org.springframework.context.annotation.ComponentScan;
+import org.springframework.context.annotation.Import;
 import org.springframework.web.servlet.config.annotation.WebMvcConfigurerAdapter;
 import org.thymeleaf.spring4.SpringTemplateEngine;
 import org.thymeleaf.spring4.view.ThymeleafViewResolver;
 import org.thymeleaf.templateresolver.ServletContextTemplateResolver;
+import ru.pihta.nocturnaltransport.config.DBConfig;
 
 @SpringBootApplication
+@ComponentScan({"ru.pihta.nocturnaltransport.model.Service",
+        "ru.pihta.nocturnaltransport.model.DAO",
+        "ru.pihta.nocturnaltransport.controller",
+        "ru.pihta.nocturnaltransport.model"})
+@Import(DBConfig.class)
 public class Application  extends WebMvcConfigurerAdapter{
     public static void main(String[] args) {
         SpringApplication.run(Application.class, args);
