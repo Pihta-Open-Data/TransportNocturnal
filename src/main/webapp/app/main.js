@@ -27,14 +27,12 @@ requirejs.config({
 define([
     'map',
     'layers/stationsLayer',
-    'models/stations',
     'modalsManager',
     'views/DepartureDialog',
-    'models/stations'
+    'models/stationsCollection'
 ], function(
     map,
     stationsLayer,
-    stationsModel,
     modalsManager,
     DepartureDialog,
     stationsCollection

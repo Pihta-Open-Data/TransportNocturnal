@@ -1,4 +1,4 @@
-define(['leaflet', 'markers/subwayMarker', 'models/stations'], function(L, SubwayMarker, stationsCollection) {
+define(['leaflet', 'markers/subwayMarker', 'models/stationsCollection'], function(L, SubwayMarker, stationsCollection) {
     var layer = new L.FeatureGroup();
     for (var i = 0; i < stationsCollection.length; i++)(function(i) {
         var station = stationsCollection.at(i);
