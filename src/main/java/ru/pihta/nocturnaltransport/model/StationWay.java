@@ -1,8 +1,9 @@
 package ru.pihta.nocturnaltransport.model;
 
+import com.fasterxml.jackson.annotation.JsonProperty;
+
 import javax.persistence.*;
 import java.time.LocalTime;
-import java.util.List;
 
 @Entity
 @Table(name = "station_way")
@@ -13,11 +14,11 @@ public class StationWay {
     @GeneratedValue
     private int id;
 
-//    @ManyToOne
-//    @JoinColumn(name = "StationID")
-//    private Station station;
+    @ManyToOne
+    @JoinColumn(name = "station_id")
+    private Station station;
 
-    @OneToOne
+    @OneToOne(fetch = FetchType.EAGER, cascade = CascadeType.ALL)
     @JoinColumn(name = "next_way")
     private StationWay next;
 
@@ -37,21 +38,17 @@ public class StationWay {
     @Column(name = "first_train_even")
     private LocalTime firstTrainEven;
 
-    @OneToMany
-    @JoinColumn(name = "transfers")
-    private List<StationWay> transfers;
-
     public int getId() {
         return id;
     }
 
-//    public Station getStation() {
-//        return station;
-//    }
-//
-//    public void setStation(Station station) {
-//        this.station = station;
-//    }
+    public Station getStation() {
+        return station;
+    }
+
+    public void setStation(Station station) {
+        this.station = station;
+    }
 
     public StationWay getNext() {
         return next;
@@ -91,18 +88,6 @@ public class StationWay {
 
     public void setFirstTrainEven(LocalTime firstTrainEven) {
         this.firstTrainEven = firstTrainEven;
-    }
-
-    public List<StationWay> getTransfers() {
-        return transfers;
-    }
-
-    public void setId(int id) {
-        this.id = id;
-    }
-
-    public void setTransfers(List<StationWay> transfers) {
-        this.transfers = transfers;
     }
 
 }

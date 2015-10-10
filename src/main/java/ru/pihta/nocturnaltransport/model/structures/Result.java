@@ -18,7 +18,7 @@ public class Result {
             throw new IllegalArgumentException("entityStationWays is null!");
         }
         if (routeLines == null) {
-            throw new IllegalArgumentException("routeLines is null!");
+            throw new IllegalArgumentException("routLines is null!");
         }
         this.entityStationWays = entityStationWays;
         this.routeLines = routeLines;

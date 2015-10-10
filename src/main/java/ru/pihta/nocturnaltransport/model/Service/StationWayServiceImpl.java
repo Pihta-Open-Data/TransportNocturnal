@@ -4,7 +4,9 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 import ru.pihta.nocturnaltransport.model.DAO.StationWayDAO;
+import ru.pihta.nocturnaltransport.model.Station;
 import ru.pihta.nocturnaltransport.model.StationWay;
+import ru.pihta.nocturnaltransport.model.structures.PairStationWay;
 
 import java.util.List;
 
@@ -23,5 +25,10 @@ public class StationWayServiceImpl implements StationWayService {
     @Override
     public List<StationWay> getAll() {
         return stationWayDAO.getAll();
+    }
+
+    @Override
+    public List<StationWay> getStationWays(Station station) {
+        return stationWayDAO.getStationWays(station);
     }
 }

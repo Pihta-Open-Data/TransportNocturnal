@@ -7,6 +7,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Repository;
 import ru.pihta.nocturnaltransport.model.Station;
 import ru.pihta.nocturnaltransport.model.StationWay;
+import ru.pihta.nocturnaltransport.model.structures.PairStationWay;
 
 import java.util.List;
 
@@ -43,5 +44,9 @@ public class StationWayDAO {
 
     public List<StationWay> getAll() {
         return getSession().createCriteria(StationWay.class).list();
+    }
+
+    public List<StationWay> getStationWays(Station station) {
+        return getSession().createCriteria(StationWay.class).add(Restrictions.eq("id", station.getId())).list();
     }
 }

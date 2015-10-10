@@ -7,13 +7,12 @@ import java.util.ArrayList;
 
 import java.time.LocalTime;
 import java.util.HashSet;
-import java.util.List;
 import java.util.Set;
 
 /**
  * Created by Lev on 10.10.2015.
  */
-public class Algorithms {
+public class Algorithm {
 
 
     /** Universal transfer interval in minutes */
@@ -27,34 +26,30 @@ public class Algorithms {
     /***
      * Gets all available station ways and routes
      */
-    public static Result getRouteLines(boolean odd, StationInterface station, LocalTime timeNow) {
+    public Result getRoutLines(boolean odd, StationInterface station, LocalTime timeNow) {
 
         Set<EntityStationWay> resultWays = new HashSet<>();
         Set<RouteLine> resultLines = new HashSet<>();
 
-        List<EntityStationWay> starts = station.getWays();
-        if (starts == null || starts.size() == 0) {
-            return null; // no ways
-        }
-
-        List<WayToCheck> waysToCheck = new ArrayList<>();
+        ArrayList<WayToCheck> waysToCheck = new ArrayList<>();
 
         // adding start points
-        for (EntityStationWay way : starts) {
-            waysToCheck.add(new WayToCheck(way, timeNow));
-        }
+        waysToCheck.add(new WayToCheck(station.getPair().getFirst(), timeNow));
+        waysToCheck.add(new WayToCheck(station.getPair().getSecond(), timeNow));
 
         while (waysToCheck.size() > 0) { // check routes while they exist
             checkRoute(odd, waysToCheck.get(0), waysToCheck, resultWays, resultLines);
         }
 
+        // TODO: clear lists collisions (unique identifier), stations
+        // TODO: clear temp data
         return new Result(resultWays, resultLines);
     }
 
     /***
      * Checks route through half-line
      */
-    private static void checkRoute(boolean odd, WayToCheck wayToCheck, List<WayToCheck> waysToCheck,
+    private void checkRoute(boolean odd, WayToCheck wayToCheck, ArrayList<WayToCheck> waysToCheck,
                             Set<EntityStationWay> resultWays, Set<RouteLine> resultLines) {
 
         EntityStationWay way = wayToCheck.getWay();
@@ -130,19 +125,17 @@ public class Algorithms {
                     timeNow = null;
                 }
             }
-            else { // no next
-                way = null;
-                timeNow = null;
-            }
         } while (way != null);
     }
+
+    //TODO: do the clearing
 
     /***
      * Return interval in minutes
      * @param time time now
      * @return interval in minutes
      */
-    private static int getUndergroundInterval(LocalTime time) {
+    private int getUndergroundInterval(LocalTime time) {
         // no trains from closing to 3:00, mock
         if (time.isAfter(LocalTime.of(0, 0, 0, 0)) && time.isBefore(LocalTime.of(3, 0, 0, 0))) {
             return 7;
@@ -150,72 +143,6 @@ public class Algorithms {
         else {
             return 5;
         }
-    }
-
-    /***
-     * Gets all lines
-     */
-    public static Result getAllLines(StationInterface station) {
-
-        Set<EntityStationWay> resultWays = new HashSet<>();
-        Set<RouteLine> resultLines = new HashSet<>();
-
-        List<EntityStationWay> starts = station.getWays();
-        if (starts == null || starts.size() == 0) {
-            return null; // no ways
-        }
-
-        List<EntityStationWay> waysToCheck = new ArrayList<>();
-
-        // adding start points
-        for (EntityStationWay way : starts) {
-            waysToCheck.add(way);
-        }
-
-        while (waysToCheck.size() > 0) { // check routes while they exist
-            makeRoute(waysToCheck.get(0), waysToCheck, resultWays, resultLines);
-        }
-
-        return new Result(resultWays, resultLines);
-    }
-
-    /***
-     * Make all route
-     */
-    private static void makeRoute(EntityStationWay entityStationWay, List<EntityStationWay> waysToCheck,
-                                   Set<EntityStationWay> resultWays, Set<RouteLine> resultLines) {
-
-        EntityStationWay way = entityStationWay;
-
-        do {
-
-            way.setReachTime(LocalTime.now()); // flag when we have reached it
-
-            ArrayList<EntityStationWay> transfers = way.getTransfers();
-            // checking transfers
-            if (transfers != null) {
-                for (EntityStationWay transfer : transfers) {
-
-                    // TODO: consider adding this line
-                    // adding line
-                    resultLines.add(new RouteLine(new PairStationWay(way, transfer), true));
-
-                    // adding way
-                    waysToCheck.add(transfer);
-                }
-            }
-
-            EntityStationWay next = way.getNext();
-
-            // if there next station exists
-            if (next != null) {
-                way = next;
-            }
-
-            else {
-                way = null; // no next
-            }
-        } while (way != null);
     }
 
 }
