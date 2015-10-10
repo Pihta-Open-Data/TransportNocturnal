@@ -5,13 +5,13 @@ import ru.pihta.nocturnaltransport.model.EntityStationWay;
 /**
  * Created by Lev on 10.10.2015.
  */
-public class RoutLine {
+public class RouteLine {
 
     private boolean transfer;
 
     PairStationWay pair;
 
-    public RoutLine(PairStationWay pair, boolean transfer) {
+    public RouteLine(PairStationWay pair, boolean transfer) {
         if (pair == null) {
             throw new IllegalArgumentException("pair is null!");
         }

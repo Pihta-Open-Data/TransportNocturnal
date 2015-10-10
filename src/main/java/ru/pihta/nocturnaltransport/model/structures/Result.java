@@ -11,24 +11,24 @@ public class Result {
 
     private Set<EntityStationWay> entityStationWays;
 
-    private Set<RoutLine> routLines;
+    private Set<RouteLine> routeLines;
 
-    public Result(Set<EntityStationWay> entityStationWays, Set<RoutLine> routLines) {
+    public Result(Set<EntityStationWay> entityStationWays, Set<RouteLine> routeLines) {
         if (entityStationWays == null) {
             throw new IllegalArgumentException("entityStationWays is null!");
         }
-        if (routLines == null) {
-            throw new IllegalArgumentException("routLines is null!");
+        if (routeLines == null) {
+            throw new IllegalArgumentException("routeLines is null!");
         }
         this.entityStationWays = entityStationWays;
-        this.routLines = routLines;
+        this.routeLines = routeLines;
     }
 
     public Set<EntityStationWay> getEntityStationWays() {
         return entityStationWays;
     }
 
-    public Set<RoutLine> getRoutLines() {
-        return routLines;
+    public Set<RouteLine> getRouteLines() {
+        return routeLines;
     }
 }

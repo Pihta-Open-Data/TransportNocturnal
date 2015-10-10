@@ -30,7 +30,7 @@ public class Algorithms {
     public static Result getRouteLines(boolean odd, StationInterface station, LocalTime timeNow) {
 
         Set<EntityStationWay> resultWays = new HashSet<>();
-        Set<RoutLine> resultLines = new HashSet<>();
+        Set<RouteLine> resultLines = new HashSet<>();
 
         List<EntityStationWay> starts = station.getWays();
         if (starts == null || starts.size() == 0) {
@@ -55,7 +55,7 @@ public class Algorithms {
      * Checks route through half-line
      */
     private static void checkRoute(boolean odd, WayToCheck wayToCheck, List<WayToCheck> waysToCheck,
-                            Set<EntityStationWay> resultWays, Set<RoutLine> resultLines) {
+                            Set<EntityStationWay> resultWays, Set<RouteLine> resultLines) {
 
         EntityStationWay way = wayToCheck.getWay();
         LocalTime timeNow = wayToCheck.getTimeNow();
@@ -98,7 +98,7 @@ public class Algorithms {
 
                     // TODO: consider adding this line
                     // adding line
-                    resultLines.add(new RoutLine(new PairStationWay(way, transfer), true));
+                    resultLines.add(new RouteLine(new PairStationWay(way, transfer), true));
 
                     // adding transfer to check the new route. incrementing the time with transfer interval
                     // TODO: consider const interval
@@ -117,7 +117,7 @@ public class Algorithms {
 
                 // TODO: consider adding this line
                 // adding line
-                resultLines.add(new RoutLine(new PairStationWay(way, next), false));
+                resultLines.add(new RouteLine(new PairStationWay(way, next), false));
 
                 // checking the ability to go next
                 LocalTime nextTime = timeNow.plusMinutes(intervalToNext);
@@ -158,7 +158,7 @@ public class Algorithms {
     public static Result getAllLines(StationInterface station) {
 
         Set<EntityStationWay> resultWays = new HashSet<>();
-        Set<RoutLine> resultLines = new HashSet<>();
+        Set<RouteLine> resultLines = new HashSet<>();
 
         List<EntityStationWay> starts = station.getWays();
         if (starts == null || starts.size() == 0) {
@@ -183,7 +183,7 @@ public class Algorithms {
      * Make all route
      */
     private static void makeRoute(EntityStationWay entityStationWay, List<EntityStationWay> waysToCheck,
-                                   Set<EntityStationWay> resultWays, Set<RoutLine> resultLines) {
+                                   Set<EntityStationWay> resultWays, Set<RouteLine> resultLines) {
 
         EntityStationWay way = entityStationWay;
 
@@ -198,7 +198,7 @@ public class Algorithms {
 
                     // TODO: consider adding this line
                     // adding line
-                    resultLines.add(new RoutLine(new PairStationWay(way, transfer), true));
+                    resultLines.add(new RouteLine(new PairStationWay(way, transfer), true));
 
                     // adding way
                     waysToCheck.add(transfer);
