@@ -4,7 +4,7 @@ define(['backbone', 'models/Station', 'dummies/subwayData'], function(Backbone, 
             for (var i = 0; i < subwayData.length; i++) {
                 this.add(new StationModel({
                     id: 'subway-' + _.uniqueId(),
-                    title: subwayData[i].title,
+                    title: subwayData[i].name,
                     latLng: L.latLng(subwayData[i].coords)
                 }));
             }

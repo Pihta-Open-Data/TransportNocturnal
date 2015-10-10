@@ -1,5 +1,6 @@
 requirejs.config({
     paths: {
+        'text': 'lib/requirejs-plugins/lib/text',
         'leaflet': 'lib/leaflet/dist/leaflet-src',
         'underscore': 'lib/underscore/underscore',
         'backbone': 'lib/backbone/backbone',
@@ -23,9 +24,29 @@ requirejs.config({
     }
 })
 
-define(['map', 'layers/stationsLayer', 'models/stations'], function(map, stationsLayer, stationsModel) {
+define([
+    'map',
+    'layers/stationsLayer',
+    'models/stations',
+    'modalsManager',
+    'views/DepartureDialog',
+    'models/stations'
+], function(
+    map,
+    stationsLayer,
+    stationsModel,
+    modalsManager,
+    DepartureDialog,
+    stationsCollection
+) {
     stationsLayer.addTo(map);
     stationsLayer.on('stationclick', function(le) {
-        console.log(le.stationId);
-    })
+        var departureDialog = new DepartureDialog({
+            model: stationsCollection.findWhere({id:le.stationId})
+        });
+        modalsManager.setModal(departureDialog)
+    });
+    map.on('click', function() {
+        modalsManager.destroyModal();
+    });
 });
