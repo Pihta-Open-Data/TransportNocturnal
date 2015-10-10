@@ -16,7 +16,7 @@ public class Application {
     @Bean
     public TemplateResolver templateResolver(){
         ServletContextTemplateResolver templateResolver = new ServletContextTemplateResolver();
-        templateResolver.setPrefix("WEB_INF/classes/templates/");
+        templateResolver.setPrefix("WEB_INF/classes/");
         templateResolver.setSuffix(".html");
         templateResolver.setTemplateMode("HTML5");
         templateResolver.setCacheable(false);
