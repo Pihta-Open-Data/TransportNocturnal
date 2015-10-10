@@ -9,13 +9,22 @@ import java.time.LocalTime;
  */
 public interface EntityStationWay {
 
+    //
+    StationInterface getStation();
+
     EntityStationWay getNext();
 
     ArrayList<EntityStationWay> getTransfers();
 
-    LocalTime getFirstTrain(boolean odd);
+    LocalTime getFirst(boolean odd);
 
-    LocalTime getLastTrain(boolean odd);
+    LocalTime getLast(boolean odd);
+
+    LocalTime getInterval();
+
+    //
+
+    void setReachTime(LocalTime time);
 
     LocalTime getReachTime();
 }

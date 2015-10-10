@@ -30,7 +30,7 @@ SET default_tablespace = '';
 SET default_with_oids = false;
 
 --
--- Name: Line; Type: TABLE; Schema: public; Owner: -; Tablespace: 
+-- Name: PairStationWay; Type: TABLE; Schema: public; Owner: -; Tablespace:
 --
 
 CREATE TABLE "Line" (
