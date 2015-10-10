@@ -37,7 +37,7 @@ define([
     DepartureDialog,
     stationsCollection
 ) {
-    stationsLayer.addTo(map);
+    map.addLayer(stationsLayer);
     stationsLayer.on('stationclick', function(le) {
         var departureDialog = new DepartureDialog({
             model: stationsCollection.findWhere({
