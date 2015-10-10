@@ -38,6 +38,8 @@ public class StationWay {
     @Column(name = "first_train_even")
     private LocalTime firstTrainEven;
 
+    private LocalTime reachTime;
+
     public int getId() {
         return id;
     }
@@ -90,4 +92,11 @@ public class StationWay {
         this.firstTrainEven = firstTrainEven;
     }
 
+    public LocalTime getReachTime() {
+        return reachTime;
+    }
+
+    public void setReachTime(LocalTime reachTime) {
+        this.reachTime = reachTime;
+    }
 }

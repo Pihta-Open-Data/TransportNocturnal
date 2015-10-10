@@ -1,6 +1,7 @@
 package ru.pihta.nocturnaltransport.model.structures;
 
-import ru.pihta.nocturnaltransport.model.EntityStationWay;
+import ru.pihta.nocturnaltransport.model.StationWay;
+import ru.pihta.nocturnaltransport.model.StationWayInterface;
 
 import java.time.LocalTime;
 
@@ -9,11 +10,11 @@ import java.time.LocalTime;
  */
 public class WayToCheck {
 
-    private EntityStationWay way;
+    private StationWay way;
 
     private LocalTime timeNow;
 
-    public WayToCheck(EntityStationWay way, LocalTime timeNow) {
+    public WayToCheck(StationWay way, LocalTime timeNow) {
         if (way == null) {
             throw new IllegalArgumentException("way is null!");
         }
@@ -24,7 +25,7 @@ public class WayToCheck {
         this.timeNow = timeNow;
     }
 
-    public EntityStationWay getWay() {
+    public StationWay getWay() {
         return way;
     }
 

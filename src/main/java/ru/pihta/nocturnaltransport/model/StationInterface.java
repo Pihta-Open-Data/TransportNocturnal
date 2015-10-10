@@ -9,7 +9,7 @@ import java.util.List;
  */
 public interface StationInterface {
 
-    List<EntityStationWay> getWays();
+    List<StationWayInterface> getWays();
 
     StationType getType();
 }

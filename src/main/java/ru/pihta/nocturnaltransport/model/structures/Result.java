@@ -1,6 +1,7 @@
 package ru.pihta.nocturnaltransport.model.structures;
 
-import ru.pihta.nocturnaltransport.model.EntityStationWay;
+import ru.pihta.nocturnaltransport.model.StationWay;
+import ru.pihta.nocturnaltransport.model.StationWayInterface;
 
 import java.util.Set;
 
@@ -9,23 +10,23 @@ import java.util.Set;
  */
 public class Result {
 
-    private Set<EntityStationWay> entityStationWays;
+    private Set<StationWay> stationWay;
 
     private Set<RouteLine> routeLines;
 
-    public Result(Set<EntityStationWay> entityStationWays, Set<RouteLine> routeLines) {
-        if (entityStationWays == null) {
+    public Result(Set<StationWay> stationWay, Set<RouteLine> routeLines) {
+        if (stationWay == null) {
             throw new IllegalArgumentException("entityStationWays is null!");
         }
         if (routeLines == null) {
-            throw new IllegalArgumentException("routLines is null!");
+            throw new IllegalArgumentException("routeLines is null!");
         }
-        this.entityStationWays = entityStationWays;
+        this.stationWay = stationWay;
         this.routeLines = routeLines;
     }
 
-    public Set<EntityStationWay> getEntityStationWays() {
-        return entityStationWays;
+    public Set<StationWay> getStationWay() {
+        return stationWay;
     }
 
     public Set<RouteLine> getRouteLines() {

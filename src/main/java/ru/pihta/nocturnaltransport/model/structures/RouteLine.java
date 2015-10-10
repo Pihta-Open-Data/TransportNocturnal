@@ -1,6 +1,7 @@
 package ru.pihta.nocturnaltransport.model.structures;
 
-import ru.pihta.nocturnaltransport.model.EntityStationWay;
+import ru.pihta.nocturnaltransport.model.StationWay;
+import ru.pihta.nocturnaltransport.model.StationWayInterface;
 
 /**
  * Created by Lev on 10.10.2015.
@@ -23,11 +24,11 @@ public class RouteLine {
         return transfer;
     }
 
-    public EntityStationWay getFrom() {
+    public StationWay getFrom() {
         return pair.getFirst();
     }
 
-    public EntityStationWay getTo() {
+    public StationWay getTo() {
         return pair.getSecond();
     }
 }

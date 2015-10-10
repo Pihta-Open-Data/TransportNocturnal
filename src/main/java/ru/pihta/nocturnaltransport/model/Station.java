@@ -5,6 +5,7 @@ import ru.pihta.nocturnaltransport.model.structures.StationType;
 
 import javax.persistence.*;
 import java.time.LocalTime;
+import java.util.List;
 
 @Entity
 @Table(name = "station")

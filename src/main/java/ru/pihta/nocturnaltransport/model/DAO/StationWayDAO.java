@@ -5,6 +5,7 @@ import org.hibernate.SessionFactory;
 import org.hibernate.criterion.Restrictions;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Repository;
+import org.springframework.transaction.annotation.Transactional;
 import ru.pihta.nocturnaltransport.model.Station;
 import ru.pihta.nocturnaltransport.model.StationWay;
 import ru.pihta.nocturnaltransport.model.structures.PairStationWay;
@@ -12,6 +13,7 @@ import ru.pihta.nocturnaltransport.model.structures.PairStationWay;
 import java.util.List;
 
 @Repository
+@Transactional
 public class StationWayDAO {
 
 
