@@ -50,7 +50,8 @@ CREATE TABLE "Station" (
     "Latitude" double precision,
     "Longitude" double precision,
     "OpenTime" time with time zone NOT NULL,
-    "CloseTime" time with time zone NOT NULL
+    "CloseTime" time with time zone NOT NULL,
+    "TypeID" integer NOT NULL
 );
 
 
@@ -66,7 +67,44 @@ CREATE TABLE "StationWay" (
     "NextWay" integer,
     "Transfers" integer[],
     "LastTrainEven" time with time zone NOT NULL,
-    "FirstTrainEven" time with time zone NOT NULL
+    "FirstTrainEven" time with time zone NOT NULL,
+    "Interval" interval
+);
+
+
+--
+-- Name: Type; Type: TABLE; Schema: public; Owner: -; Tablespace: 
+--
+
+CREATE TABLE "Type" (
+    "ID" integer NOT NULL,
+    "Name" character varying(64)
+);
+
+
+--
+-- Name: base_data; Type: TABLE; Schema: public; Owner: -; Tablespace: 
+--
+
+CREATE TABLE base_data (
+    row_id integer NOT NULL,
+    hall_name character varying(64),
+    longitude double precision,
+    latitude double precision,
+    name_of_station character varying(64),
+    line character varying(64),
+    odd_open_varchar character varying(64),
+    close_odd_varchar character varying(64),
+    odd_first_train_way_1 character varying(64),
+    odd_first_train_way_2 character varying(64),
+    odd_last_train_way_1 character varying(64),
+    odd_last_train_way_2 character varying,
+    even_open_varchar character varying(64),
+    even_close_varchar character varying(64),
+    even_first_train_way_1 character varying(64),
+    even_first_train_way_2 character varying(64),
+    even_last_thain_way_1 character varying(64),
+    even_last_train_way_2 character varying(64)
 );
 
 
@@ -87,6 +125,14 @@ ALTER TABLE ONLY "Station"
 
 
 --
+-- Name: TypeID; Type: CONSTRAINT; Schema: public; Owner: -; Tablespace: 
+--
+
+ALTER TABLE ONLY "Type"
+    ADD CONSTRAINT "TypeID" PRIMARY KEY ("ID");
+
+
+--
 -- Name: id; Type: CONSTRAINT; Schema: public; Owner: -; Tablespace: 
 --
 
@@ -95,11 +141,27 @@ ALTER TABLE ONLY "StationWay"
 
 
 --
+-- Name: row_id; Type: CONSTRAINT; Schema: public; Owner: -; Tablespace: 
+--
+
+ALTER TABLE ONLY base_data
+    ADD CONSTRAINT row_id PRIMARY KEY (row_id);
+
+
+--
 -- Name: LineID; Type: FK CONSTRAINT; Schema: public; Owner: -
 --
 
 ALTER TABLE ONLY "Station"
     ADD CONSTRAINT "LineID" FOREIGN KEY ("LineID") REFERENCES "Line"("ID");
+
+
+--
+-- Name: StationType; Type: FK CONSTRAINT; Schema: public; Owner: -
+--
+
+ALTER TABLE ONLY "Station"
+    ADD CONSTRAINT "StationType" FOREIGN KEY ("TypeID") REFERENCES "Type"("ID");
 
 
 --
