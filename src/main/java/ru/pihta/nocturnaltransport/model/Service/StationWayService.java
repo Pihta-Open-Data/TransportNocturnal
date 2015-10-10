@@ -3,7 +3,6 @@ package ru.pihta.nocturnaltransport.model.Service;
 
 import ru.pihta.nocturnaltransport.model.Station;
 import ru.pihta.nocturnaltransport.model.StationWay;
-import ru.pihta.nocturnaltransport.model.structures.PairStationWay;
 
 import java.util.List;
 

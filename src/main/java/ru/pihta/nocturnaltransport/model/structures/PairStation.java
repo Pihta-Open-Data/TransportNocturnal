@@ -1,18 +1,17 @@
 package ru.pihta.nocturnaltransport.model.structures;
 
-import ru.pihta.nocturnaltransport.model.StationWay;
-import ru.pihta.nocturnaltransport.model.StationWayInterface;
+import ru.pihta.nocturnaltransport.model.Station;
 
 /**
  * Created by Lev on 10.10.2015.
  */
-public class PairStationWay {
+public class PairStation {
 
-    private StationWay first;
+    private Station first;
 
-    private StationWay second;
+    private Station second;
 
-    public PairStationWay(StationWay first, StationWay second) {
+    public PairStation(Station first, Station second) {
         if (first == null) {
             throw new IllegalArgumentException("first is null!");
         }
@@ -23,11 +22,11 @@ public class PairStationWay {
         this.second = second;
     }
 
-    public StationWay getFirst() {
+    public Station getFirst() {
         return first;
     }
 
-    public StationWay getSecond() {
+    public Station getSecond() {
         return second;
     }
 }

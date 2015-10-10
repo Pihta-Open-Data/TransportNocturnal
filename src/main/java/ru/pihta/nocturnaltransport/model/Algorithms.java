@@ -36,7 +36,7 @@ public class Algorithms {
      */
     public Result getRouteLines(boolean odd, Station station, LocalTime timeNow) {
 
-        Set<StationWay> resultWays = new HashSet<>();
+        Set<Station> resultStations = new HashSet<>();
         Set<RouteLine> resultLines = new HashSet<>();
 
         List<StationWay> starts = stationWayService.getStationWays(station);
@@ -52,17 +52,18 @@ public class Algorithms {
         }
 
         while (waysToCheck.size() > 0) { // check routes while they exist
-            checkRoute(odd, waysToCheck.get(0), waysToCheck, resultWays, resultLines);
+            checkRoute(odd, waysToCheck.get(0), waysToCheck, resultStations, resultLines);
+            waysToCheck.remove(0);
         }
 
-        return new Result(resultWays, resultLines);
+        return new Result(resultStations, resultLines);
     }
 
     /***
      * Checks route through half-line
      */
     private void checkRoute(boolean odd, WayToCheck wayToCheck, List<WayToCheck> waysToCheck,
-                            Set<StationWay> resultWays, Set<RouteLine> resultLines) {
+                            Set<Station> resultStations, Set<RouteLine> resultLines) {
 
         StationWay way = wayToCheck.getWay();
         LocalTime timeNow = wayToCheck.getTimeNow();
@@ -88,7 +89,7 @@ public class Algorithms {
             }
 
             way.setReachTime(timeNow); // flag when we have reached it
-            resultWays.add(way); // adding to reached ways
+            resultStations.add(way.getStation()); // adding to reached ways
 
             List<StationWay> transfers = transferService.getTransferStationWays(way);
             // checking transfers
@@ -105,7 +106,7 @@ public class Algorithms {
 
                     // TODO: consider adding this line
                     // adding line
-                    resultLines.add(new RouteLine(new PairStationWay(way, transfer), true));
+                    resultLines.add(new RouteLine(new PairStation(way.getStation(), transfer.getStation()), true));
 
                     // adding transfer to check the new route. incrementing the time with transfer interval
                     // TODO: consider const interval
@@ -124,7 +125,7 @@ public class Algorithms {
 
                 // TODO: consider adding this line
                 // adding line
-                resultLines.add(new RouteLine(new PairStationWay(way, next), false));
+                resultLines.add(new RouteLine(new PairStation(way.getStation(), next.getStation()), false));
 
                 // checking the ability to go next
                 LocalTime nextTime = timeNow.plusMinutes(intervalToNext);
@@ -165,7 +166,7 @@ public class Algorithms {
      */
     public Result getAllLines(Station station) {
 
-        Set<StationWay> resultWays = new HashSet<>();
+        Set<Station> resultStations = new HashSet<>();
         Set<RouteLine> resultLines = new HashSet<>();
 
         List<StationWay> starts = stationWayService.getStationWays(station);
@@ -181,31 +182,26 @@ public class Algorithms {
         }
 
         while (waysToCheck.size() > 0) { // check routes while they exist
-            makeRoute(waysToCheck.get(0), waysToCheck, resultWays, resultLines);
+            makeRoute(waysToCheck.get(0), waysToCheck, resultStations, resultLines);
+            waysToCheck.remove(0);
         }
 
-        return new Result(resultWays, resultLines);
-    }
-
-    private LocalTime getLastTrain(StationWay stationWay, boolean odd) {
-        return odd? stationWay.getFirstTrainOdd() : stationWay.getLastTrainEven();
-    }
-
-    private LocalTime getFirstTrain(StationWay stationWay, boolean odd) {
-        return odd? stationWay.getFirstTrainOdd() : stationWay.getLastTrainEven();
+        return new Result(resultStations, resultLines);
     }
 
     /***
      * Make all route
      */
     private void makeRoute(StationWay stationWay, List<StationWay> waysToCheck,
-                                   Set<StationWay> resultWays, Set<RouteLine> resultLines) {
+                                   Set<Station> resultStations, Set<RouteLine> resultLines) {
 
         StationWay way = stationWay;
 
         do {
 
+
             way.setReachTime(LocalTime.now()); // flag when we have reached it
+            resultStations.add(way.getStation()); // adding to reached ways
 
             List<StationWay> transfers = transferService.getTransferStationWays(way);
             // checking transfers
@@ -214,7 +210,7 @@ public class Algorithms {
 
                     // TODO: consider adding this line
                     // adding line
-                    resultLines.add(new RouteLine(new PairStationWay(way, transfer), true));
+                    resultLines.add(new RouteLine(new PairStation(way.getStation(), transfer.getStation()), true));
 
                     // adding way
                     waysToCheck.add(transfer);
@@ -232,6 +228,14 @@ public class Algorithms {
                 way = null; // no next
             }
         } while (way != null);
+    }
+
+    private LocalTime getLastTrain(StationWay stationWay, boolean odd) {
+        return odd? stationWay.getFirstTrainOdd() : stationWay.getLastTrainEven();
+    }
+
+    private LocalTime getFirstTrain(StationWay stationWay, boolean odd) {
+        return odd? stationWay.getFirstTrainOdd() : stationWay.getLastTrainEven();
     }
 
 }

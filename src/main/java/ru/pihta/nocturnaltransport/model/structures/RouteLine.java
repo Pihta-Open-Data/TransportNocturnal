@@ -1,7 +1,6 @@
 package ru.pihta.nocturnaltransport.model.structures;
 
-import ru.pihta.nocturnaltransport.model.StationWay;
-import ru.pihta.nocturnaltransport.model.StationWayInterface;
+import ru.pihta.nocturnaltransport.model.Station;
 
 /**
  * Created by Lev on 10.10.2015.
@@ -10,9 +9,9 @@ public class RouteLine {
 
     private boolean transfer;
 
-    PairStationWay pair;
+    PairStation pair;
 
-    public RouteLine(PairStationWay pair, boolean transfer) {
+    public RouteLine(PairStation pair, boolean transfer) {
         if (pair == null) {
             throw new IllegalArgumentException("pair is null!");
         }
@@ -24,11 +23,11 @@ public class RouteLine {
         return transfer;
     }
 
-    public StationWay getFrom() {
+    public Station getFrom() {
         return pair.getFirst();
     }
 
-    public StationWay getTo() {
+    public Station getTo() {
         return pair.getSecond();
     }
 }

@@ -1,7 +1,6 @@
 package ru.pihta.nocturnaltransport.model.structures;
 
 import ru.pihta.nocturnaltransport.model.StationWay;
-import ru.pihta.nocturnaltransport.model.StationWayInterface;
 
 import java.time.LocalTime;
 
