@@ -10,6 +10,6 @@ requirejs.config({
     }
 })
 
-define(['map', 'layers/subwayLayer'], function(map, subwayLayer) {
-    subwayLayer.addTo(map)
+define(['map', 'layers/stationsLayer'], function(map, stationsLayer) {
+    stationsLayer.addTo(map);
 });
