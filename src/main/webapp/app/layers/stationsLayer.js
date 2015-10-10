@@ -15,16 +15,27 @@ define([
         subway: SubwayMarker
     }
 
-    var topLayer = new L.FeatureGroup();
-    var bottomLayer = new StationsCollectionLayer({
-        collection: stationsCollection,
-        markerSet: topMarkerSet
-    });
+    var stationLayers = {
+        top: new L.FeatureGroup(),
+        bottom: new StationsCollectionLayer({
+            collection: stationsCollection,
+            markerSet: topMarkerSet
+        })
+    }
 
-    return new DoubleLayer({
+    var doubleLayer = new DoubleLayer({
         collection: stationsCollection,
         zoomThreshold: 13,
-        topLayer: topLayer,
-        bottomLayer: bottomLayer
+        topLayer: stationLayers['top'],
+        bottomLayer: stationLayers['bottom']
     });
+
+    for (type in stationLayers) {
+        stationLayers[type].on('stationclick', function(le) {
+            doubleLayer.fire('stationclick', {
+                stationId: le.stationId
+            });
+        });
+    }
+    return doubleLayer;
 })
