@@ -31,3 +31,5 @@ button:hover {
 .fullSizeContainer div { pointer-events: auto; }
 .mapContainer { z-index: 1; }
 .modalsContainer { z-index: 2; display: flex; align-items: center; justify-content: center; }
+
+.subwayTopIcon { border-radius: 4px; background: #cc0000; border: 1px solid #aa0000; }

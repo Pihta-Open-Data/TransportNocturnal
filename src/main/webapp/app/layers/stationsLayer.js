@@ -12,20 +12,33 @@ define([
     DoubleLayer
 ) {
     var topMarkerSet = {
+        subway: L.Marker.extend({
+            options: {
+                icon: L.divIcon({
+                    iconSize: [8, 8],
+                    className: 'subwayTopIcon'
+                })
+            }
+        })
+    };
+    var bottomMarkerSet = {
         subway: SubwayMarker
-    }
+    };
 
     var stationLayers = {
-        top: new L.FeatureGroup(),
-        bottom: new StationsCollectionLayer({
+        top: new StationsCollectionLayer({
             collection: stationsCollection,
             markerSet: topMarkerSet
+        }),
+        bottom: new StationsCollectionLayer({
+            collection: stationsCollection,
+            markerSet: bottomMarkerSet
         })
     }
 
     var doubleLayer = new DoubleLayer({
         collection: stationsCollection,
-        zoomThreshold: 13,
+        zoomThreshold: 12,
         topLayer: stationLayers['top'],
         bottomLayer: stationLayers['bottom']
     });
