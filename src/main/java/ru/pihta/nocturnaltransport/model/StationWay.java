@@ -2,56 +2,56 @@ package ru.pihta.nocturnaltransport.model;
 
 import javax.persistence.*;
 import java.time.LocalTime;
-import java.util.ArrayList;
+import java.util.List;
 
 @Entity
-@Table(name = "StationWay")
+@Table(name = "station_way")
 public class StationWay {
 
     @Id
-    @Column(name = "ID")
+    @Column(name = "id")
     @GeneratedValue
     private int id;
 
-    @ManyToOne
-    @JoinColumn(name = "StationID")
-    private Station station;
+//    @ManyToOne
+//    @JoinColumn(name = "StationID")
+//    private Station station;
 
     @OneToOne
-    @JoinColumn(name = "Next")
+    @JoinColumn(name = "next_way")
     private StationWay next;
 
-    @Temporal(TemporalType.TIME)
-    @Column(name = "LastTrainOdd")
+    @Convert(converter = LocalTimePersistenceConverter.class)
+    @Column(name = "last_train_odd")
     private LocalTime lastTrainOdd;
 
-    @Temporal(TemporalType.TIME)
-    @Column(name = "LastTrainEven")
+    @Convert(converter = LocalTimePersistenceConverter.class)
+    @Column(name = "last_train_even")
     private LocalTime lastTrainEven;
 
-    @Temporal(TemporalType.TIME)
-    @Column(name = "FirstTrainOdd")
+    @Convert(converter = LocalTimePersistenceConverter.class)
+    @Column(name = "first_train_odd")
     private LocalTime firstTrainOdd;
 
-    @Temporal(TemporalType.TIME)
-    @Column(name = "FirstTrainEven")
+    @Convert(converter = LocalTimePersistenceConverter.class)
+    @Column(name = "first_train_even")
     private LocalTime firstTrainEven;
 
     @OneToMany
-    @JoinColumn(name = "Transfers")
-    private ArrayList<StationWay> transfers;
+    @JoinColumn(name = "transfers")
+    private List<StationWay> transfers;
 
     public int getId() {
         return id;
     }
 
-    public Station getStation() {
-        return station;
-    }
-
-    public void setStation(Station station) {
-        this.station = station;
-    }
+//    public Station getStation() {
+//        return station;
+//    }
+//
+//    public void setStation(Station station) {
+//        this.station = station;
+//    }
 
     public StationWay getNext() {
         return next;
@@ -93,11 +93,15 @@ public class StationWay {
         this.firstTrainEven = firstTrainEven;
     }
 
-    public ArrayList<StationWay> getTransfers() {
+    public List<StationWay> getTransfers() {
         return transfers;
     }
 
-    public void setTransfers(ArrayList<StationWay> transfers) {
+    public void setId(int id) {
+        this.id = id;
+    }
+
+    public void setTransfers(List<StationWay> transfers) {
         this.transfers = transfers;
     }
 

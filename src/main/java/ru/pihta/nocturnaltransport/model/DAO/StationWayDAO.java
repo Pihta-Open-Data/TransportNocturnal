@@ -8,6 +8,8 @@ import org.springframework.stereotype.Repository;
 import ru.pihta.nocturnaltransport.model.Station;
 import ru.pihta.nocturnaltransport.model.StationWay;
 
+import java.util.List;
+
 @Repository
 public class StationWayDAO {
 
@@ -32,6 +34,14 @@ public class StationWayDAO {
     }
 
     public void getByStation(Station station) {
-        return  getSession().createCriteria(StationWay.class).add(Restrictions.eq("StationId", station.getId()));
+
+    }
+
+    public StationWay getById(int id) {
+        return (StationWay) getSession().createCriteria(StationWay.class).add(Restrictions.eq("id", id)).uniqueResult();
+    }
+
+    public List<StationWay> getAll() {
+        return getSession().createCriteria(StationWay.class).list();
     }
 }
