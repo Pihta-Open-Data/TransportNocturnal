@@ -1,15 +1,24 @@
-define(['backbone', 'models/StationModel', 'dummies/subwayData'], function(Backbone, StationModel, subwayData) {
+define(['backbone', 'leaflet', 'models/StationModel', 'configPromise'], function(Backbone, L, StationModel, configPromise) {
     var StationsCollection = Backbone.Collection.extend({
         initialize: function() {
-            for (var i = 0; i < subwayData.length; i++) {
-                this.add(new StationModel({
-                    id: 'subway-' + _.uniqueId(),
-                    title: subwayData[i].name,
-                    latLng: L.latLng(subwayData[i].coords)
-                }));
-            }
+
         }
     });
 
-    return new StationsCollection();
+    var stationsCollection = new StationsCollection();
+
+    configPromise.then(function(config) {
+        $.ajax(config.serverRoot + 'stations/').then(function(stations) {
+            for (var i = 0; i < stations.length; i++) {
+                stationsCollection.add(new StationModel({
+                    latLng: L.latLng(stations[i].latitude, stations[i].longitude),
+                    title: stations[i].name,
+                    id: stations[i].id
+                }));
+            }
+            stationsCollection.trigger('upd');
+        })
+    });
+
+    return stationsCollection;
 });

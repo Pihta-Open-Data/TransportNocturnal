@@ -40,7 +40,9 @@ define([
     stationsLayer.addTo(map);
     stationsLayer.on('stationclick', function(le) {
         var departureDialog = new DepartureDialog({
-            model: stationsCollection.findWhere({id:le.stationId})
+            model: stationsCollection.findWhere({
+                id: le.stationId
+            })
         });
         modalsManager.setModal(departureDialog)
     });
