@@ -1,5 +1,5 @@
-define(['leaflet'], function(L) {
-    var map = L.map(document.body).setView({
+define(['leaflet', 'layoutManager'], function(L, layoutManager) {
+    var map = L.map(layoutManager.getMapContainer()).setView({
         lat: 55.7529120574368,
         lng: 37.622079849243164
     }, 12);
