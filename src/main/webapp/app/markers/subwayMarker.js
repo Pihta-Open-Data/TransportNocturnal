@@ -1,4 +1,4 @@
-define(['lib/leaflet/dist/leaflet-src'], function(L) {
+define(['leaflet'], function(L) {
     var IC = L.Icon.extend({
         options: {
             iconUrl: 'app/markers/subway-icon.png',

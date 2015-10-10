@@ -1,4 +1,7 @@
 requirejs.config({
+    paths: {
+        'leaflet': 'lib/leaflet/dist/leaflet-src'
+    },
     shim: {
         'lib/leaflet.maskcanvas/src/QuadTree': {
             exports: 'QuadTree'

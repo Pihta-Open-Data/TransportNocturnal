@@ -1,4 +1,4 @@
-define(['lib/leaflet/dist/leaflet-src'], function(L) {
+define(['leaflet'], function(L) {
     var map = L.map(document.body).setView({
         lat: 55.7529120574368,
         lng: 37.622079849243164
