@@ -1,0 +1,8 @@
+{
+  "name": "transport.noctural",
+  "dependencies": {
+    "leaflet": "~0.7.5",
+    "leaflet.maskcanvas": "*",
+    "requirejs": "~2.1.20"
+  }
+}
