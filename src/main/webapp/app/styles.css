@@ -3,9 +3,31 @@ html, body {
     height: 100%;
     padding: 0;
     margin: 0;
+    font-family: Tahoma;
+}
+
+input {
+    border-radius: 4px;
+    border: 1px solid hsl(0, 0%, 60%);
+    padding: 6px;
+    font-size: 16px;
+    outline: none;
+}
+
+button {
+    background-color: white;
+    border: 1px solid hsl(0, 0%, 60%);
+    border-radius: 4px;
+    padding: 6px 18px;
+    cursor: pointer;
+    outline: none;
+}
+
+button:hover {
+    background-color: hsl(55, 95%, 80%);
 }
 
 .fullSizeContainer { position: absolute; top: 0; bottom: 0; left: 0; right: 0; pointer-events: none; }
 .fullSizeContainer div { pointer-events: auto; }
 .mapContainer { z-index: 1; }
-.modalsContainer { z-index: 2; }
+.modalsContainer { z-index: 2; display: flex; align-items: center; justify-content: center; }
