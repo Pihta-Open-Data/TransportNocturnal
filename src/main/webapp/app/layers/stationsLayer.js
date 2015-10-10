@@ -1,8 +1,14 @@
-define(['leaflet', 'markers/subwayMarker', 'layers/subwayData'], function(L, SubwayMarker, subwayData) {
+define(['leaflet', 'markers/subwayMarker', 'models/stations'], function(L, SubwayMarker, stationsCollection) {
     var layer = new L.FeatureGroup();
-    for (var i = 0; i < subwayData.length; i++) {
-        var marker = new SubwayMarker(subwayData[i].coords);
+    for (var i = 0; i < stationsCollection.length; i++)(function(i) {
+        var station = stationsCollection.at(i);
+        var marker = new SubwayMarker(station.get('latLng'));
+        marker.on('click', function() {
+            layer.fire('stationclick', {
+                stationId: station.get('id')
+            });
+        });
         marker.addTo(layer);
-    }
+    })(i);
     return layer;
 })

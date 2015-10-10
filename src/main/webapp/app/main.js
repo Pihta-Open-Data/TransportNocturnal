@@ -23,6 +23,9 @@ requirejs.config({
     }
 })
 
-define(['map', 'layers/stationsLayer'], function(map, stationsLayer) {
+define(['map', 'layers/stationsLayer', 'models/stations'], function(map, stationsLayer, stationsModel) {
     stationsLayer.addTo(map);
+    stationsLayer.on('stationclick', function(le) {
+        console.log(le.stationId);
+    })
 });
