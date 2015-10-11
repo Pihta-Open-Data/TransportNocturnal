@@ -6,8 +6,13 @@
     flex-direction: column;
     justify-content: center;
     align-items: center;
+    min-width: 400px;
 }
 
 .departureDialog * { margin-top: 10px; }
 .departureDialog *:last-child { margin-bottom: 10px; }
 .departureDialog input { width: 50px; text-align: center; }
+
+.departureDialog-title { text-align: center; }
+.departureDialog-title-phrase { font-size: 1em; }
+.departureDialog-title-phrase_station { font-size: 1.6em; }
