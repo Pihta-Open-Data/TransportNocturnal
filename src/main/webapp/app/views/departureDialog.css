@@ -1,4 +1,5 @@
 .departureDialog {
+    position: relative;
     background-color: white;
     padding: 20px;
     box-shadow: 0 0 10px hsla(0, 0%, 0%, .3);
@@ -9,6 +10,18 @@
     min-width: 400px;
 }
 
+.departureDialog-closeButton {
+    position: absolute;
+    top: 0;
+    right: 0;
+    padding: 0;
+    margin: 5px 15px !important;
+    font-family: arial;
+    font-size: 1.5em;
+    font-weight: 100;
+    cursor: pointer;
+}
+
 .departureDialog * { margin-top: 10px; }
 .departureDialog *:last-child { margin-bottom: 10px; }
 .departureDialog input { width: 50px; text-align: center; }
@@ -16,3 +29,11 @@
 .departureDialog-title { text-align: center; }
 .departureDialog-title-phrase { font-size: 1em; }
 .departureDialog-title-phrase_station { font-size: 1.6em; }
+
+@media only screen and (max-width: 480px) {
+    .departureDialog {
+        min-width: 100%;
+        height: 100%;
+        padding: 0;
+    }
+}
