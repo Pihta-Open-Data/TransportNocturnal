@@ -161,6 +161,8 @@ public class Algorithms {
         }
     }
 
+    List<Integer> marked = new ArrayList<>();
+
     /***
      * Gets all lines
      */
@@ -181,12 +183,15 @@ public class Algorithms {
             waysToCheck.add(way);
         }
 
+
         while (waysToCheck.size() > 0) { // check routes while they exist
             StationWay way = waysToCheck.get(0);
             makeRoute(way, waysToCheck, resultStations, resultLines);
             waysToCheck.remove(0);
+            if (marked.size() > 500) break;
         }
 
+        marked.clear();
         return new Result(resultStations, resultLines);
     }
 
@@ -200,16 +205,17 @@ public class Algorithms {
 
         do {
 
-            if (way.getReachTime() != null) {
+            if (marked.contains(way.getId())) {
+                marked.add(way.getId());
                 return;
             }
 
-            way.setReachTime(LocalTime.now()); // flag when we have reached it
+            marked.add(way.getId()); // flag when we have reached it
             resultStations.add(way.getStation()); // adding to reached ways
 
             List<StationWay> transfers = transferService.getTransferStationWays(way);
             // checking transfers
-            if (transfers != null) {
+            /*if (transfers != null) {
                 for (StationWay transfer : transfers) {
 
                     // TODO: consider adding this line
@@ -219,7 +225,7 @@ public class Algorithms {
                     // adding way
                     waysToCheck.add(transfer);
                 }
-            }
+            }*/
 
             StationWay next = way.getNext();
 
