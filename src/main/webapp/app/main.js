@@ -27,17 +27,20 @@ requirejs.config({
 define([
     'map',
     'layers/stationsLayer',
+    'layers/totalLinesLayer',
     'modalsManager',
     'views/DepartureDialog',
     'models/stationsCollection'
 ], function(
     map,
     stationsLayer,
+    totalLinesLayer,
     modalsManager,
     DepartureDialog,
     stationsCollection
 ) {
     map.addLayer(stationsLayer);
+    map.addLayer(totalLinesLayer);
     stationsLayer.on('stationclick', function(le) {
         var departureDialog = new DepartureDialog({
             model: stationsCollection.findWhere({
