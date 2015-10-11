@@ -225,7 +225,7 @@ public class Algorithms {
         do {
 
             for (StationWay w : marked) {
-                if (w.getId() == way.getId()) {
+                if (w.getStation().getId() == way.getStation().getId()) {
                     return;
                 }
             }
