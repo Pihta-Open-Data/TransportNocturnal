@@ -225,6 +225,8 @@ public class Algorithms {
 
             // if there next station exists
             if (next != null) {
+                // adding line
+                resultLines.add(new RouteLine(new PairStation(way.getStation(), next.getStation()), false));
                 way = next;
             }
 
