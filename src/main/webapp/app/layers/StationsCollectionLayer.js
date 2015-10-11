@@ -1,14 +1,7 @@
-define(['leaflet'], function(L) {
+define(['leaflet', 'layers/FeatureCollectionLayer'], function(L, FeatureCollectionLayer) {
     // options.collection
     // options.markerSet
-    return L.FeatureGroup.extend({
-        initialize: function(options) {
-            L.setOptions(this, options);
-            L.FeatureGroup.prototype.initialize.apply(this, arguments)
-            this.options.collection.on('upd', this.update.bind(this));
-            this._features = [];
-            this.update();
-        },
+    return FeatureCollectionLayer.extend({
         update: function() {
             this.clear();
             for (var i = 0; i < this.options.collection.length; i++)(function(i) {
@@ -22,13 +15,6 @@ define(['leaflet'], function(L) {
                 this._features.push(marker);
                 marker.addTo(this);
             }.bind(this))(i);
-        },
-        clear: function() {
-            while (this._features.length) {
-                var marker = this._features.pop();
-                marker.off('click');
-                this.removeLayer(marker);
-            }
         }
     });
 });
