@@ -182,8 +182,9 @@ public class Algorithms {
         }
 
         while (waysToCheck.size() > 0) { // check routes while they exist
-            StationWay way = waysToCheck.remove(0);
+            StationWay way = waysToCheck.get(0);
             makeRoute(way, waysToCheck, resultStations, resultLines);
+            waysToCheck.remove(0);
         }
 
         return new Result(resultStations, resultLines);

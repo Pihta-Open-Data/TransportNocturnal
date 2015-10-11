@@ -48,6 +48,6 @@ public class StationWayDAO {
     }
 
     public List<StationWay> getStationWays(Station station) {
-        return getSession().createCriteria(StationWay.class).add(Restrictions.eq("id", station.getId())).list();
+        return getSession().createCriteria(StationWay.class).add(Restrictions.eq("station", station)).list();
     }
 }
