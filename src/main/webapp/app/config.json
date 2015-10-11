@@ -1,3 +1,12 @@
 {
-    "serverRoot": "/"
+    "serverRoot": "/",
+    "stationLinesStyles": {
+        "0": {
+            "color": "#cc0000"
+        },
+        "0-transfer": {
+            "color": "#cc0000",
+            "dashArray": [1, 10]
+        }
+    }
 }

@@ -11,7 +11,8 @@ define(['backbone', 'config'], function(Backbone, config) {
         for (var i = 0; i < lines.length; i++) {
             linesCollection.add(new Backbone.Model({
                 first: lines[i].first,
-                second: lines[i].second
+                second: lines[i].second,
+                transfer: lines[i].transfer
             }));
         }
         linesCollection.trigger('upd');

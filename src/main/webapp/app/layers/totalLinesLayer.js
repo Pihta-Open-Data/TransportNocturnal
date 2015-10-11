@@ -2,13 +2,17 @@ define([
     'leaflet',
     'models/totalLinesCollection',
     'models/stationsCollection',
-    'layers/FeatureCollectionLayer'
+    'layers/FeatureCollectionLayer',
+    'config'
 ], function(
     L,
     totalLinesCollection,
     stationsCollection,
-    FeatureCollectionLayer
+    FeatureCollectionLayer,
+    config
 ) {
+    var linesStyles = config.stationLinesStyles;
+
     var LinesLayer = FeatureCollectionLayer.extend({
         initialize: function(options) {
             FeatureCollectionLayer.prototype.initialize.apply(this, arguments);
@@ -25,10 +29,16 @@ define([
                     id: lineModel.get('second')
                 });
                 if (first && second) {
+                    if (first.get('type') === second.get('type')) {
+                        var style = first.get('type') + '';
+                        if (lineModel.get('transfer')) {
+                            style += '-transfer'
+                        }
+                    }
                     var polyline = L.polyline([
                         first.get('latLng'),
                         second.get('latLng')
-                    ]);
+                    ], linesStyles[style]);
                     this._features.push(polyline);
                     polyline.addTo(this);
                 }

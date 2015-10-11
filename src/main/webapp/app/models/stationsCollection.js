@@ -12,7 +12,8 @@ define(['backbone', 'leaflet', 'models/StationModel', 'config'], function(Backbo
             stationsCollection.add(new StationModel({
                 latLng: L.latLng(stations[i].latitude, stations[i].longitude),
                 title: stations[i].name,
-                id: stations[i].id
+                id: stations[i].id,
+                type: stations[i].stationType
             }));
         }
         stationsCollection.trigger('upd');
