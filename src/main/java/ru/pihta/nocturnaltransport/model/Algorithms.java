@@ -182,8 +182,8 @@ public class Algorithms {
         }
 
         while (waysToCheck.size() > 0) { // check routes while they exist
-            makeRoute(waysToCheck.get(0), waysToCheck, resultStations, resultLines);
-            waysToCheck.remove(0);
+            StationWay way = waysToCheck.remove(0);
+            makeRoute(way, waysToCheck, resultStations, resultLines);
         }
 
         return new Result(resultStations, resultLines);
@@ -199,6 +199,9 @@ public class Algorithms {
 
         do {
 
+            if (way.getReachTime() != null) {
+                return;
+            }
 
             way.setReachTime(LocalTime.now()); // flag when we have reached it
             resultStations.add(way.getStation()); // adding to reached ways
