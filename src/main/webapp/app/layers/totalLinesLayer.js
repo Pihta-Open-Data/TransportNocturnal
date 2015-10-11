@@ -39,8 +39,20 @@ define([
                         first.get('latLng'),
                         second.get('latLng')
                     ], linesStyles[style]);
-                    this._features.push(polyline);
-                    polyline.addTo(this);
+
+                    var k = 0.75;
+                    var debugPolyline = L.polyline([
+                        L.latLng({
+                            lat: second.get('latLng').lat + (first.get('latLng').lat - second.get('latLng').lat) * k,
+                            lng: second.get('latLng').lng + (first.get('latLng').lng - second.get('latLng').lng) * k
+                        }),
+                        first.get('latLng')
+                    ], {
+                        color: '#ffff00'
+                    });
+                    var fg = L.featureGroup([polyline, debugPolyline]);
+                    this._features.push(fg);
+                    fg.addTo(this);
                 }
             }.bind(this))(i);
         }
