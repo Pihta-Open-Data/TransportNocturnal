@@ -1,0 +1,6 @@
+{
+    "name": "transport.nocturnal",
+    "scripts": {
+        "prepare": "echo {} > app/localConfig.json"
+    }
+}
