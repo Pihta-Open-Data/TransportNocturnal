@@ -42,14 +42,22 @@ define([
 ) {
     map.addLayer(stationsLayer);
     map.addLayer(totalLinesLayer);
+
     stationsLayer.on('stationclick', function(le) {
         var departureDialog = new DepartureDialog({
             model: stationsCollection.findWhere({
                 id: le.stationId
             })
         });
-        modalsManager.setModal(departureDialog)
+        departureDialog.on('confirm', function() {
+            modalsManager.destroyModal();
+        });
+        departureDialog.on('cancel', function() {
+            modalsManager.destroyModal();
+        });
+        modalsManager.setModal(departureDialog);
     });
+    
     map.on('click', function() {
         modalsManager.destroyModal();
     });

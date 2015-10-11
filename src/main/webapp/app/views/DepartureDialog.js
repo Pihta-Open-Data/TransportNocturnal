@@ -1,6 +1,10 @@
 define(['views/BaseView', 'text!views/departureDialog.html'], function(BaseView, departureDialogTemplate) {
     return BaseView.extend({
         className: 'departureDialog',
+        events: {
+            'click .departureDialog-confirmButton': '_onConfirmButtonClick',
+            'click .departureDialog-closeButton': '_onCloseButtonClick'            
+        },
         initialize: function(options) {
             this.render();
         },
@@ -9,6 +13,12 @@ define(['views/BaseView', 'text!views/departureDialog.html'], function(BaseView,
                 stationName: this.model.get('title')
             }));
             return this;
+        },
+        _onConfirmButtonClick: function() {
+            this.trigger('confirm');
+        },
+        _onCloseButtonClick: function() {
+            this.trigger('cancel');
         }
     })
 });
