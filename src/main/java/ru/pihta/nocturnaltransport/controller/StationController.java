@@ -12,11 +12,13 @@ import ru.pihta.nocturnaltransport.model.Service.StationService;
 import ru.pihta.nocturnaltransport.model.Service.StationWayService;
 import ru.pihta.nocturnaltransport.model.Station;
 import ru.pihta.nocturnaltransport.model.StationWay;
+import ru.pihta.nocturnaltransport.model.structures.PairStation;
 import ru.pihta.nocturnaltransport.model.structures.Result;
 import ru.pihta.nocturnaltransport.model.structures.RouteLine;
 
 import java.time.LocalDate;
 import java.time.LocalTime;
+import java.util.HashSet;
 import java.util.List;
 import java.util.Set;
 
@@ -39,8 +41,13 @@ public class StationController {
 
     @RequestMapping(value = "/lines", method = RequestMethod.GET, produces = MediaType.APPLICATION_JSON_VALUE)
     public Set<RouteLine> getAllLines() {
-        Result result = algorithms.getAllLines(stationService.getById(3));
-        return result.getRouteLines();
+       Result result = algorithms.getAllLines(stationService.getById(220));
+       return result.getRouteLines();
+//        Set<RouteLine> lines = new HashSet<>();
+//        lines.add(new RouteLine(new PairStation(stationService.getById(437), stationService.getById(351)), false));
+//        lines.add(new RouteLine(new PairStation(stationService.getById(351), stationService.getById(508)), true));
+//        lines.add(new RouteLine(new PairStation(stationService.getById(508), stationService.getById(189)), false));
+//        return lines;
     }
 
     @RequestMapping(value = "/activeLines", method = RequestMethod.GET, produces = MediaType.APPLICATION_JSON_VALUE)

@@ -3,7 +3,7 @@ package ru.pihta.nocturnaltransport.model;
 import javax.persistence.*;
 
 @Entity
-@Table(name = "transfer")
+@Table(name = "transfers")
 public class Transfer {
 
     @Id
@@ -12,11 +12,11 @@ public class Transfer {
     private int id;
 
     @ManyToOne
-    @JoinColumn(name = "start_id")
+    @JoinColumn(name = "start")
     private StationWay start;
 
     @ManyToOne
-    @JoinColumn(name = "finish_id")
+    @JoinColumn(name = "finish")
     private StationWay finish;
 
     public int getId() {

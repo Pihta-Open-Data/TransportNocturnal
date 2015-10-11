@@ -22,6 +22,9 @@ public class Station {
     @Column
     private double longitude;
 
+    @Column
+    private String name;
+
     @Column(name = "open_time")
     @Convert(converter = LocalTimePersistenceConverter.class)
     private LocalTime openTime;
@@ -80,5 +83,13 @@ public class Station {
 
     public void setStationType(int stationType) {
         this.stationType = stationType;
+    }
+
+    public String getName() {
+        return name;
+    }
+
+    public void setName(String name) {
+        this.name = name;
     }
 }

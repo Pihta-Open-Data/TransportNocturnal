@@ -25,7 +25,7 @@ public class TransferDAO {
     public List<Transfer> getStationWayTransfers(StationWay stationWay) {
         return getSession().createCriteria(Transfer.class)
                 .add(Restrictions
-                        .or(Restrictions.eq("startId", stationWay.getId()),
-                                Restrictions.eq("finishId", stationWay.getId()))).list();
+                        .or(Restrictions.eq("start", stationWay),
+                                Restrictions.eq("finish", stationWay))).list();
     }
 }

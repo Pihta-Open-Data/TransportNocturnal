@@ -23,11 +23,11 @@ public class RouteLine {
         return transfer;
     }
 
-    public Station getFrom() {
+    public int getFirst() {
         return pair.getFirst();
     }
 
-    public Station getTo() {
+    public int getSecond() {
         return pair.getSecond();
     }
 }

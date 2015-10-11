@@ -38,6 +38,7 @@ public class StationWay {
     @Column(name = "first_train_even")
     private LocalTime firstTrainEven;
 
+    @Transient
     private LocalTime reachTime;
 
     public int getId() {
@@ -98,5 +99,22 @@ public class StationWay {
 
     public void setReachTime(LocalTime reachTime) {
         this.reachTime = reachTime;
+    }
+
+    @Override
+    public boolean equals(Object o) {
+        if (this == o) return true;
+        if (o == null || getClass() != o.getClass()) return false;
+
+        StationWay that = (StationWay) o;
+
+        if (id != that.id) return false;
+
+        return true;
+    }
+
+    @Override
+    public int hashCode() {
+        return id;
     }
 }

@@ -7,9 +7,9 @@ import ru.pihta.nocturnaltransport.model.Station;
  */
 public class PairStation {
 
-    private Station first;
+    private int first;
 
-    private Station second;
+    private int second;
 
     public PairStation(Station first, Station second) {
         if (first == null) {
@@ -18,15 +18,15 @@ public class PairStation {
         if (second == null) {
             throw new IllegalArgumentException("second is null!");
         }
-        this.first = first;
-        this.second = second;
+        this.first = first.getId();
+        this.second = second.getId();
     }
 
-    public Station getFirst() {
+    public int getFirst() {
         return first;
     }
 
-    public Station getSecond() {
+    public int getSecond() {
         return second;
     }
 }
