@@ -19,7 +19,7 @@ public class CafeController {
         try {
             return readFile("cafes.json", Charset.forName("UTF-8"));
         } catch (IOException e) {
-            return "{\"error\": \"cafes not found\"}";
+            return "{\"error\": \"" + e.getMessage() + "\"}";
         }
     }
 

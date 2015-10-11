@@ -41,7 +41,8 @@ public class StationController {
 
     @RequestMapping(value = "/lines", method = RequestMethod.GET, produces = MediaType.APPLICATION_JSON_VALUE)
     public Set<RouteLine> getAllLines() {
-       Result result = algorithms.getAllLines(stationService.getById(549));
+       Result result = algorithms.getRouteLines(true, stationService.getById(526), LocalTime.of(0, 45));
+        //Result result = algorithms.getAllLines(stationService.getById(526));
        return result.getRouteLines();
 //        Set<RouteLine> lines = new HashSet<>();
 //        lines.add(new RouteLine(new PairStation(stationService.getById(437), stationService.getById(351)), false));

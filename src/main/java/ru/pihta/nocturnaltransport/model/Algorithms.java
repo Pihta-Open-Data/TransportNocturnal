@@ -65,6 +65,16 @@ public class Algorithms {
         return new Result(resultStations, resultLines);
     }
 
+
+    private boolean after(LocalTime t1, LocalTime t2) {
+        if ((t1.getHour() < 12 && t2.getHour() < 12) ||
+                (t1.getHour() > 12 && t2.getHour() > 12)) {
+            return t1.isAfter(t2);
+        }
+
+        return (t1.getHour() < 12);
+    }
+
     /***
      * Checks route through half-line
      */
@@ -84,16 +94,16 @@ public class Algorithms {
             }
             else {
                 // stating that we have to wait for maximum interval
-                timeNow.plusMinutes(undInterval);
+                timeNow = timeNow.plusMinutes(undInterval);
             }
         }
 
         do {
             boolean found = false;
             for (StationWay w : markedWays) {
-                if (w.getId() == way.getId()) {
+                if (w.getStation().getId() == way.getStation().getId()) {
                     // if we have already reached this earlier, there is no need to check next ones
-                    if (w.getReachTime().isBefore(timeNow)) {
+                    if (! after(w.getReachTime(), timeNow)) {
                         return;
                     }
                     else {
@@ -118,7 +128,7 @@ public class Algorithms {
                     if (StationType.values()[way.getStation().getStationType()] == StationType.UNDERGROUND &&
                             StationType.values()[transfer.getStation().getStationType()] == StationType.UNDERGROUND) {
                         // if both station ways are underground, check transfer closing time
-                        if (timeNow.isAfter(underTransClos)) {
+                        if (after(timeNow, underTransClos)) {
                             continue; // we are late to move to that route
                         }
                     }
@@ -140,7 +150,7 @@ public class Algorithms {
 
                 // TODO: consider this moment
                 // counting the interval between station ways using last transport units
-                long intervalToNext = ChronoUnit.MINUTES.between(getLastTrain(next, odd), getLastTrain(way, odd));
+                long intervalToNext = 3;//ChronoUnit.MINUTES.between(getLastTrain(next, odd), getLastTrain(way, odd));
 
                 // TODO: consider adding this line
                 // adding line
@@ -148,6 +158,16 @@ public class Algorithms {
 
                 // checking the ability to go next
                 LocalTime nextTime = timeNow.plusMinutes(intervalToNext);
+                way = next;
+                timeNow = nextTime;
+            }
+            else {
+                way = null;
+                timeNow = null;
+            }
+               /*
+
+
                 // TODO: consider checking first
                 if (! (nextTime.isAfter(getLastTrain(next, odd)) && nextTime.isBefore(getFirstTrain(next, odd)))) {
                     // continuing
@@ -161,7 +181,7 @@ public class Algorithms {
             else { // no next
                 way = null;
                 timeNow = null;
-            }
+            }*/
         } while (way != null);
     }
 
