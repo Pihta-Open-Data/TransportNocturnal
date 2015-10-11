@@ -7,6 +7,13 @@
         "0-transfer": {
             "color": "#cc0000",
             "dashArray": [1, 10]
+        },
+        "1": {
+            "color": "#0000cc"
+        },
+        "1-transfer": {
+            "color": "#0000cc",
+            "dashArray": [1, 10]
         }
     }
 }

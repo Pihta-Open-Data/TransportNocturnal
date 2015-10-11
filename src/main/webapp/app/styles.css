@@ -32,4 +32,6 @@ button:hover {
 .mapContainer { z-index: 1; }
 .modalsContainer { z-index: 2; display: flex; align-items: center; justify-content: center; }
 
-.subwayTopIcon { border-radius: 4px; background: #cc0000; border: 1px solid #aa0000; }
+.subwayTopIcon { border-radius: 4px; background: #cc0000; }
+.busTopIcon { border-radius: 4px; background: #0000cc; }
+.busBottomIcon { border-radius: 13px; background: #0000cc; }

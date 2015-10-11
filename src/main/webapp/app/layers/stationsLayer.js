@@ -12,17 +12,33 @@ define([
     DoubleLayer
 ) {
     var topMarkerSet = {
-        subway: L.Marker.extend({
+        '0': L.Marker.extend({
             options: {
                 icon: L.divIcon({
                     iconSize: [8, 8],
                     className: 'subwayTopIcon'
                 })
             }
+        }),
+        '1': L.Marker.extend({
+            options: {
+                icon: L.divIcon({
+                    iconSize: [8, 8],
+                    className: 'busTopIcon'
+                })
+            }
         })
     };
     var bottomMarkerSet = {
-        subway: SubwayMarker
+        '0': SubwayMarker,
+        '1': L.Marker.extend({
+            options: {
+                icon: L.divIcon({
+                    iconSize: [25, 25],
+                    className: 'busBottomIcon'
+                })
+            }
+        })
     };
 
     var stationLayers = {

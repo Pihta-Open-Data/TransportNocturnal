@@ -6,7 +6,7 @@ define(['leaflet', 'layers/FeatureCollectionLayer'], function(L, FeatureCollecti
             this.clear();
             for (var i = 0; i < this.options.collection.length; i++)(function(i) {
                 var station = this.options.collection.at(i);
-                var marker = new this.options.markerSet['subway'](station.get('latLng'));
+                var marker = new this.options.markerSet[station.get('type') + ''](station.get('latLng'));
                 marker.on('click', function() {
                     this.fire('stationclick', {
                         stationId: station.get('id')
