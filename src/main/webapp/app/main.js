@@ -57,6 +57,17 @@ define([
     map.addLayer(stationsLayer);
     map.addLayer(totalLinesLayer);
 
+    var fogOfWarLayer = new FogOfWarLayer({
+        radius: 700,
+        zIndex: 100000,
+        lineDelta: 0.001,
+        linesCollection: totalLinesCollection,
+        stationsCollection: stationsCollection
+    });
+    window.map = map;
+    window.fwl = fogOfWarLayer;
+    fogOfWarLayer.addTo(map);
+
     stationsLayer.on('stationclick', function(le) {
         var departureDialog = new DepartureDialog({
             model: stationsCollection.findWhere({
