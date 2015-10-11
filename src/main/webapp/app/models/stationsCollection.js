@@ -14,8 +14,8 @@ define(['backbone', 'leaflet', 'models/StationModel', 'config', 'models/StationT
                 title: stations[i].name,
                 id: stations[i].id,
                 type: stations[i].stationType,
-                openTime: new StationTime(stations[i].openTime[0], stations[i].openTime[1]),
-                closeTime: new StationTime(stations[i].closeTime[0], stations[i].closeTime[1])
+                openTime: stations[i].openTime && new StationTime(stations[i].openTime[0], stations[i].openTime[1]),
+                closeTime: stations[i].closeTime && new StationTime(stations[i].closeTime[0], stations[i].closeTime[1])
             }));
         }
         stationsCollection.trigger('upd');
