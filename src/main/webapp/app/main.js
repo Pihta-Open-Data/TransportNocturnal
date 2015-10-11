@@ -1,6 +1,7 @@
 requirejs.config({
     paths: {
         'text': 'lib/requirejs-plugins/lib/text',
+        'json': 'lib/requirejs-plugins/src/json',
         'leaflet': 'lib/leaflet/dist/leaflet-src',
         'underscore': 'lib/underscore/underscore',
         'backbone': 'lib/backbone/backbone',
