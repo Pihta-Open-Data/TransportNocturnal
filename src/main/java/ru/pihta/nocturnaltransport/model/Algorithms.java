@@ -31,6 +31,9 @@ public class Algorithms {
     // TODO: consider this
     private final LocalTime underTransClos = LocalTime.of(1, 0, 0, 0);
 
+
+    List<StationWay> markedWays = new ArrayList<>();
+
     /***
      * Gets all available station ways and routes
      */
@@ -54,6 +57,9 @@ public class Algorithms {
         while (waysToCheck.size() > 0) { // check routes while they exist
             checkRoute(odd, waysToCheck.get(0), waysToCheck, resultStations, resultLines);
             waysToCheck.remove(0);
+            if (markedWays.size() > 500) {
+                break;
+            }
         }
 
         return new Result(resultStations, resultLines);
@@ -83,13 +89,26 @@ public class Algorithms {
         }
 
         do {
-
-            if (way.getReachTime() != null && way.getReachTime().isBefore(timeNow)) {
-                return; // if we have already reached this earlier, there is no need to check next ones
+            boolean found = false;
+            for (StationWay w : markedWays) {
+                if (w.getId() == way.getId()) {
+                    // if we have already reached this earlier, there is no need to check next ones
+                    if (w.getReachTime().isBefore(timeNow)) {
+                        return;
+                    }
+                    else {
+                        w.setReachTime(timeNow); // flag when we have reached it
+                    }
+                    found = true;
+                    break;
+                }
             }
 
-            way.setReachTime(timeNow); // flag when we have reached it
-            resultStations.add(way.getStation()); // adding to reached ways
+            if (!found) {
+                way.setReachTime(timeNow);
+                markedWays.add(way);
+                resultStations.add(way.getStation()); // adding to reached ways
+            }
 
             List<StationWay> transfers = transferService.getTransferStationWays(way);
             // checking transfers
@@ -130,7 +149,7 @@ public class Algorithms {
                 // checking the ability to go next
                 LocalTime nextTime = timeNow.plusMinutes(intervalToNext);
                 // TODO: consider checking first
-                if (!nextTime.isAfter(getLastTrain(next, odd)) && nextTime.isBefore(getFirstTrain(next, odd))) {
+                if (! (nextTime.isAfter(getLastTrain(next, odd)) && nextTime.isBefore(getFirstTrain(next, odd)))) {
                     // continuing
                     way = next;
                     timeNow = nextTime;
@@ -161,7 +180,7 @@ public class Algorithms {
         }
     }
 
-    List<Integer> marked = new ArrayList<>();
+    private List<StationWay> marked = new ArrayList<>();
 
     /***
      * Gets all lines
@@ -205,17 +224,26 @@ public class Algorithms {
 
         do {
 
-            if (marked.contains(way.getId())) {
-                marked.add(way.getId());
-                return;
+            for (StationWay w : marked) {
+                if (w.getId() == way.getId()) {
+                    return;
+                }
             }
 
-            marked.add(way.getId()); // flag when we have reached it
+
+
+           /*if (marked.size() == 12) {
+                return;
+            }*/
+
+            marked.add(way); // flag when we have reached it
             resultStations.add(way.getStation()); // adding to reached ways
+
+            boolean a = lol(marked);
 
             List<StationWay> transfers = transferService.getTransferStationWays(way);
             // checking transfers
-            /*if (transfers != null) {
+            if (transfers != null) {
                 for (StationWay transfer : transfers) {
 
                     // TODO: consider adding this line
@@ -225,7 +253,7 @@ public class Algorithms {
                     // adding way
                     waysToCheck.add(transfer);
                 }
-            }*/
+            }
 
             StationWay next = way.getNext();
 
@@ -248,6 +276,14 @@ public class Algorithms {
 
     private LocalTime getFirstTrain(StationWay stationWay, boolean odd) {
         return odd? stationWay.getFirstTrainOdd() : stationWay.getLastTrainEven();
+    }
+
+    private boolean lol(List<StationWay> e) {
+        Set set = new HashSet(e);
+        if (set.size() != e.size()) {
+            return true;
+        }
+        return false;
     }
 
 }
